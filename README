@@ -1,0 +1,20 @@
+
+This is a script to export highlights and notes from ibooks databases.
+
+highlights and notes are in the below sqlite db file
+AEAnnotation_v..._local.sqlite
+
+in the ZAENNOTATION TABLE
+the Note is in the ZANNOTATIONOTE field
+the Highlight is in the ZANNOTATIONSELECTEDTEXT field
+the book id is in the ZANNOTATIONASSETID field
+
+the book to ZANNOTATIONASSETID map is in the
+iBooks_v....sqlite db file
+
+The book id is in the ZBOOKUNIQUEID field
+
+The script executes on these two dbs to export your notes and highlights.
+
+The '...' are a random series of numbers. You need to get these files out of our iOS device by using a utility like phoneView.app
+
