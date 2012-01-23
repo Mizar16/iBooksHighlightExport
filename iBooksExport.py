@@ -5,7 +5,7 @@
 #highlights and notes are in the below file
 #Documents/storeFiles/AEAnnotation_v..._local.sqlite
 #
-#in the ZAENNOTATION TABLE
+#in the ZAEANNOTATION TABLE
 #
 #the Note is in the ZANNOTATIONOTE field
 #the Highlight is in the ZANNOTATIONSELECTEDTEXT field
@@ -59,13 +59,23 @@ with dbConnection :
 #connection to notes db
 dbConnection = lite.connect(notesDB)
 
-with dbConnecction :
+with dbConnection :
     
     dbConnection.row_factory = lite.Row
 
     cur = dbConnection.cursor()
-    cur.execute ('select ZANNOTATIONNOTE, ZANNOTATIONSELECTEDTEXT, ZANNOTATIONASSETID from ZAENNOTATION')
+    cur.execute ('select ZANNOTATIONNOTE, ZANNOTATIONSELECTEDTEXT, ZANNOTATIONASSETID from ZAEANNOTATION')
 
     rows = cur.fetchall()
+    
+    for row in rows:
+
+        compareValue = row["ZANNOTATIONSELECTEDTEXT"]
+
+        
+        if str(compareValue) != "None":
+            print " %s %s %s" %  (row["ZANNOTATIONNOTE"], row["ZANNOTATIONSELECTEDTEXT"], row["ZANNOTATIONASSETID"])
+            #this is where we would only output if the selected text was not null
+            #would create the object that holds the book title and all notes and highlights
 
 
