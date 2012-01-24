@@ -24,7 +24,6 @@
 
 import sqlite3 as lite
 import sys
-import unicodedata as ud
 
 #get command line arguement for the names of the database files
 iBooksDB = sys.argv[1]
@@ -38,8 +37,8 @@ else :
     notesDB = iBooksDB
     iBooksDB = tempArg
 
-#print db names
-print "iBooks = " + iBooksDB
+#book to key map
+dictKeyBook = {}
 
 #connection to book titles db
 dbConnection = lite.connect(iBooksDB)
@@ -54,12 +53,17 @@ with dbConnection :
     rows = cur.fetchall()
     
     for row in rows:
-        print " %s %s" % (row["ZDATABASEKEY"], row["ZBOOKTITLE"])
         #add the bdkey and book title to a dictionary for reference later
+        #the below could be an error of converstion to ascii from unicode
+        # if we convert here we have to convert the key when it is encountered later
+        dictKeyBook[str(row["ZDATABASEKEY"])] = row["ZBOOKTITLE"]
+
+#print dictKeyBook
 
 #connection to notes db
 dbConnection = lite.connect(notesDB)
 
+flag = True
 with dbConnection :
     
     dbConnection.row_factory = lite.Row
@@ -68,19 +72,27 @@ with dbConnection :
     cur.execute ('select ZANNOTATIONNOTE, ZANNOTATIONSELECTEDTEXT, ZANNOTATIONASSETID from ZAEANNOTATION')
 
     rows = cur.fetchall()
-    
+
+    #for each row we want to parse the data
     for row in rows:
-        
+       #some strings are ascii and some are unicode, if a string converts to ascii with out
+        #issue then we want to compare that to None. if true then we dont care about that
+        # row. if it errors out then we certainly want the data from that row
         try :
             compareString = str(row["ZANNOTATIONNOTE"])
             
             if compareString != "None" :
+                print " "
                 print " %s %s %s" %  (row["ZANNOTATIONNOTE"], row["ZANNOTATIONSELECTEDTEXT"], row["ZANNOTATIONASSETID"])
-
-
+                flag = False
+                
         except:
-            print " %s %s %s" %  (row["ZANNOTATIONNOTE"], row["ZANNOTATIONSELECTEDTEXT"], row["ZANNOTATIONASSETID"])
-            #this is where we would only output if the selected text was not null
-            #would create the object that holds the book title and all notes and highlights
+            if flag :                
+                print " "
+                print " %s %s %s" %  (row["ZANNOTATIONNOTE"], row["ZANNOTATIONSELECTEDTEXT"], row["ZANNOTATIONASSETID"])
+                flag = True
+
+
+
 
 
