@@ -24,6 +24,7 @@
 
 import sqlite3 as lite
 import sys
+import unicodedata as ud
 
 #get command line arguement for the names of the database files
 iBooksDB = sys.argv[1]
@@ -69,11 +70,15 @@ with dbConnection :
     rows = cur.fetchall()
     
     for row in rows:
-
-        compareValue = row["ZANNOTATIONSELECTEDTEXT"]
-
         
-        if str(compareValue) != "None":
+        try :
+            compareString = str(row["ZANNOTATIONNOTE"])
+            
+            if compareString != "None" :
+                print " %s %s %s" %  (row["ZANNOTATIONNOTE"], row["ZANNOTATIONSELECTEDTEXT"], row["ZANNOTATIONASSETID"])
+
+
+        except:
             print " %s %s %s" %  (row["ZANNOTATIONNOTE"], row["ZANNOTATIONSELECTEDTEXT"], row["ZANNOTATIONASSETID"])
             #this is where we would only output if the selected text was not null
             #would create the object that holds the book title and all notes and highlights

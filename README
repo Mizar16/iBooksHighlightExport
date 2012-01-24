@@ -1,18 +1,25 @@
 
-This is a script to export highlights and notes from ibooks databases.
+python script to export ibooks highlights from ibooks databases
 
-highlights and notes are in the below sqlite db file
-AEAnnotation_v..._local.sqlite
+highlights and notes are in the below file
+Documents/storeFiles/AEAnnotation_v..._local.sqlite
 
-in the ZAENNOTATION TABLE
+in the ZAEANNOTATION TABLE
+
 the Note is in the ZANNOTATIONOTE field
 the Highlight is in the ZANNOTATIONSELECTEDTEXT field
 the book id is in the ZANNOTATIONASSETID field
 
 the book to ZANNOTATIONASSETID map is in the
-iBooks_v....sqlite db file
+Documents/BKLibrary_database/iBooks_v....sqlite file
+
+in the ZBKBOOKINFO table
 
 The book id is in the ZBOOKUNIQUEID field
+The book title is in the ZBOOKTITLE field
+if the book has DRM then the book id is in the ZDATABASEKEY field
+ZDATABASEKEY and ZBOOKUNIQUEID are equal in all cases when the book is not DRMed. So ignore ZBOOKUNIQUEID and only use ZDATABASEKEY.
+
 
 The script executes on these two dbs to export your notes and highlights.
 
