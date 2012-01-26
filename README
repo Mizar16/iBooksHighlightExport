@@ -19,7 +19,8 @@ The book id is in the ZBOOKUNIQUEID field
 The book title is in the ZBOOKTITLE field
 if the book has DRM then the book id is in the ZDATABASEKEY field
 ZDATABASEKEY and ZBOOKUNIQUEID are equal in all cases when the book is not DRMed. So ignore ZBOOKUNIQUEID and only use ZDATABASEKEY.
-
+The ZANNOTIONTYPE is to make sure it is a highlight or a note. This way you can avoid reading list book marks and the like. 
+ZPLLOCATIONRANGESTART field is the location of the note/highlight. this is to help sort the order of notes
 
 The script executes on these two dbs to export your notes and highlights.
 

@@ -69,7 +69,7 @@ with dbConnection :
     dbConnection.row_factory = lite.Row
 
     cur = dbConnection.cursor()
-    cur.execute ('select ZANNOTATIONNOTE, ZANNOTATIONSELECTEDTEXT, ZANNOTATIONASSETID from ZAEANNOTATION')
+    cur.execute ('select ZANNOTATIONNOTE, ZANNOTATIONSELECTEDTEXT, ZANNOTATIONASSETID, ZPLLOCATIONRANGESTART, ZANNOTATIONTYPE from ZAEANNOTATION where ZANNOTATIONTYPE=2')
 
     rows = cur.fetchall()
 
@@ -78,19 +78,9 @@ with dbConnection :
        #some strings are ascii and some are unicode, if a string converts to ascii with out
         #issue then we want to compare that to None. if true then we dont care about that
         # row. if it errors out then we certainly want the data from that row
-        try :
-            compareString = str(row["ZANNOTATIONNOTE"])
-            
-            if compareString != "None" :
-                print " "
-                print " %s %s %s" %  (row["ZANNOTATIONNOTE"], row["ZANNOTATIONSELECTEDTEXT"], row["ZANNOTATIONASSETID"])
-                flag = False
-                
-        except:
-            if flag :                
-                print " "
-                print " %s %s %s" %  (row["ZANNOTATIONNOTE"], row["ZANNOTATIONSELECTEDTEXT"], row["ZANNOTATIONASSETID"])
-                flag = True
+        if flag :                
+            print " "
+            print " %s %s %s" %  (row["ZANNOTATIONNOTE"], row["ZANNOTATIONSELECTEDTEXT"], row["ZANNOTATIONASSETID"])
 
 
 
