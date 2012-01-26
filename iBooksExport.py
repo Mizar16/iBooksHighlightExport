@@ -117,9 +117,11 @@ with dbConnection :
         #print " %s : %s : %s" %  (row["ZANNOTATIONNOTE"], row["ZANNOTATIONSELECTEDTEXT"], row["ZANNOTATIONASSETID"])
 
 
-#iterate through noteRows for each book
-#add books to the book list
-#print out the book list
+#iterate through each noteRow in noteRows
+#each note row are all pertinant data in it
+#each books title is mapped to its asset id in dictKeyBook
+#add book obj to the bookList
+#print out each book obj in the bookList
 
 
 
