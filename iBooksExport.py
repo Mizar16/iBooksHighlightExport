@@ -25,6 +25,27 @@
 import sqlite3 as lite
 import sys
 
+class BookNotes:
+    #vaiables
+    bookName = ''
+    completeNoteList =[]
+
+    #constructor
+    def __init__(self):
+        print "test"     
+    
+    def setBookName(self, incomingBookName):
+        self.bookName = incomingBookName
+    
+    def addNoteArray(self, incomingNoteArray=[]):
+        completeNoteList.append(incomingNoteArray)
+    def printTheBook(self):
+        i = 0
+        while(completeNoteList.len < i):
+            print 'completeNoteList[i][1]'+' : '+'completeNoteList[i][2]'+' : '+'completeNoteList[i][3]'
+            print ''
+            i=i+1
+
 #get command line arguement for the names of the database files
 iBooksDB = sys.argv[1]
 tempArg = sys.argv[2]
@@ -63,6 +84,10 @@ with dbConnection :
 #connection to notes db
 dbConnection = lite.connect(notesDB)
 
+#dicionary for book key and bookNote obj
+bookList = {}
+noteRows = []
+
 flag = True
 with dbConnection :
     
@@ -78,11 +103,23 @@ with dbConnection :
        #some strings are ascii and some are unicode, if a string converts to ascii with out
         #issue then we want to compare that to None. if true then we dont care about that
         # row. if it errors out then we certainly want the data from that row
-        if flag :                
-            print " "
-            print " %s %s %s" %  (row["ZANNOTATIONNOTE"], row["ZANNOTATIONSELECTEDTEXT"], row["ZANNOTATIONASSETID"])
+        
+        noteRow = ['','','','']
+        #process each row and add it to a list
+        noteRow [0] = row["ZANNOTATIONNOTE"]
+        noteRow [1] = row["ZANNOTATIONSELECTEDTEXT"]
+        noteRow [2] = row["ZANNOTATIONASSETID"]
+        noteRow [3] =  row["ZPLLOCATIONRANGESTART"]
+        
+        noteRows.append(noteRow)
+
+        #print " "
+        #print " %s : %s : %s" %  (row["ZANNOTATIONNOTE"], row["ZANNOTATIONSELECTEDTEXT"], row["ZANNOTATIONASSETID"])
 
 
+#iterate through noteRows for each book
+#add books to the book list
+#print out the book list
 
 
 
