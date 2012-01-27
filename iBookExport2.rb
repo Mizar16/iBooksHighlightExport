@@ -13,11 +13,13 @@ tempArg = ARGV[1]
 notesDB = ""
 
 #correctly attribute database file names
-if iBooksDB[0,1] == "iB"
+if iBooksDB[0,2] == "iB"
     notesDB = tempArg
+#	puts "TRUE"
 else
     notesDB = iBooksDB
     iBooksDB = tempArg
+#	puts "False"
 end
 
 #puts "notesDB " + notesDB + "\n"
@@ -25,30 +27,32 @@ end
 
 #open databases
 bookKeyTileDB = SQLite3::Database.open(iBooksDB)
-bookNotesDB = SQLite::Database.open(notesDB)
+bookNotesDB = SQLite3::Database.open(notesDB)
 
 #parse sqlite into a book class
-listOfBooks = bookKeyTileDB.execute("select ZDATABASEKEY, ZBOOKTITLE from ZBKBOOKINFO") do |row|
+bookKeyTileDB.execute("select ZDATABASEKEY, ZBOOKTITLE from ZBKBOOKINFO") do |row|
     #for each row
     #iterate through book list
     #get book name and key
-    bookName = listOfBooks[1]
-    bookNameKey = listOfBooks[0]
+    bookName = row[1]
+    bookNameKey = row[0]
 
-    print "hello world"
-    puts bookName
-    print bookNameKey
+    puts bookName + " : " + bookNameKey
 
     #at each point do a query for notes or highlights
-    listOfNotes = bookNotesDB.execute("select ZANNOTATIONNOTE, ZANNOTATIONSELECTEDTEXT, ZANNOTATIONASSETID, ZPLLOCATIONRANGESTART, ZANNOTATIONTYPE from ZAEANNOTATION where ZANNOTATIONTYPE=2 and ZANNOTATIONASSETID = ?", bookNameKey) do |row|
-
+    bookNotesDB.execute("select ZANNOTATIONNOTE, ZANNOTATIONSELECTEDTEXT, ZANNOTATIONASSETID, ZPLLOCATIONRANGESTART, ZANNOTATIONTYPE from ZAEANNOTATION where ZANNOTATIONTYPE=2 and ZANNOTATIONASSETID = ?", bookNameKey) do |notes|
 
         #add those to the book class obj
-    
-        end
+		if notes[0]!=nil
+			#	puts "::"+ notes[0]
+			#	make a class
+			#	add notes and to that class
+
+		end
+    end
     
     #print book class
-    
+    puts "********************\n"
 
     #get next book
     
