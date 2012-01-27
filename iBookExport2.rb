@@ -12,8 +12,6 @@ iBooksDB = ARGV[0]
 tempArg = ARGV[1]
 notesDB = ""
 
-puts Dir.pwd
-
 #correctly attribute database file names
 if iBooksDB[0,2] == "iB"
     notesDB = tempArg
@@ -39,32 +37,36 @@ bookKeyTileDB.execute("select ZDATABASEKEY, ZBOOKTITLE from ZBKBOOKINFO") do |ro
     bookName = row[1]
     bookNameKey = row[0]
 
-    #puts bookName + " : " + bookNameKey
+   # puts bookName + " : " + bookNameKey
 
-	File.open("/bookNote/"+bookName+".txt","w+") do bookFile
-		#print book name
-		bookFile.syswrite(bookName+"\n")
-		bookFile.syswrite("---------------------------------\n\n")
 
-		#at each point do a query for notes or highlights
-		bookNotesDB.execute("select ZANNOTATIONNOTE, ZANNOTATIONSELECTEDTEXT, ZANNOTATIONASSETID, ZPLLOCATIONRANGESTART, ZANNOTATIONTYPE from ZAEANNOTATION where ZANNOTATIONTYPE=2 and ZANNOTATIONASSETID = ?", bookNameKey) do |notes|
+   	bookNotesDB.execute("select ZANNOTATIONASSETID, ZANNOTATIONTYPE from ZAEANNOTATION where ZANNOTATIONTYPE=2 and ZANNOTATIONASSETID = ?", bookNameKey) do |noteExistTest|
+		if noteExistTest[0] != nil
+			bookFile = File.open("bookNote/"+bookName[0,30]+".txt","w+")
+			#print book name
+			bookFile << bookName+"\n"
+			bookFile << "---------------------------------\n\n"
+			bookFile.close()
+		
+			#at each point do a query for notes or highlights
+			bookNotesDB.execute("select ZANNOTATIONNOTE, ZANNOTATIONSELECTEDTEXT, ZANNOTATIONASSETID, ZPLLOCATIONRANGESTART, ZANNOTATIONTYPE from ZAEANNOTATION where ZANNOTATIONTYPE=2 and ZANNOTATIONASSETID = ?", bookNameKey) do |notes|
+		
+				bookFile = File.open("bookNote/"+bookName[0,30]+".txt","a")
 
-			#add those to the book class obj
-			if notes[0]!=nil
-				#	puts "::"+ notes[0] + "::"+notes[1]+"::"+notes[2]
-				#	notes[0] is note, notes[1] is highlight
-				#	print notes and highlights
-				bookFile.syswrite("Highlight:\n")
-				bookFile.syswrite("---------------------------------\n\n")
-				bookFile.syswrite("		\n"+notes[1]+"\n")
-				bookFile.syswrite("---------------------------------\n\n")			
-				bookFile.syswrite("Note:\n")
-				bookFile.syswrite("---------------------------------\n\n")
-				bookFile.syswrite("		\n"+notes1[0]+"\n\n")
+				#add those to the book class obj
+				if notes[0]!=nil
+					#	puts "::"+ notes[0] + "::"+notes[1]+"::"+notes[2]
+					#	notes[0] is note, notes[1] is highlight
+					#	print notes and highlights
+					bookFile << "Highlight:\n"
+					bookFile << "---------------------------------\n"
+					bookFile << "		"+notes[1]+"\n\n"
+					bookFile << "Note:\n"
+					bookFile << "---------------------------------\n\n"
+					bookFile << "		"+notes[0]+"\n\n\n"
+				end
+				bookFile.close()
 			end
 		end
-    end
-    
-    #get next book
-    
+	end    
 end
