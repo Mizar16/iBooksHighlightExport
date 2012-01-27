@@ -40,12 +40,22 @@ class BookNotes:
         self.completeNoteList.append(incoming)
     
     def printTheBook(self):
-        print "===== " + self.bookName + "====="
+        fileName = self.bookName +".txt"
+        FILE = open(fileName, "w")
+        FILE.write("===== " + self.bookName.encode('utf-8') + " =====")
+        FILE.write("")
         i = 0
         while(len(self.completeNoteList) > i):
-            print self.completeNoteList[i][1] +' : '+ self.completeNoteList[i][2] +' : '+ self.completeNoteList[i][3]
-            print ''
-            i=i+1
+            try:
+                FILE.write(self.completeNoteList[i][0].encode('utf-8'))
+                FILE.write("")
+                FILE.write(self.completeNoteList[i][1].encode('utf-8'))
+                FILE.write("")
+                FILE.write("")
+                i=i+1
+            except:
+                i=i+1
+        FILE.close()
 
 #get command line arguement for the names of the database files
 iBooksDB = sys.argv[1]
