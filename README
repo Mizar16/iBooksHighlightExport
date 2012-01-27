@@ -1,5 +1,5 @@
 
-python script to export ibooks highlights from ibooks databases
+ruby script to export ibooks highlights from ibooks databases
 
 highlights and notes are in the below file
 Documents/storeFiles/AEAnnotation_v..._local.sqlite
@@ -24,5 +24,5 @@ ZPLLOCATIONRANGESTART field is the location of the note/highlight. this is to he
 
 The script executes on these two dbs to export your notes and highlights.
 
-The '...' are a random series of numbers. You need to get these files out of our iOS device by using a utility like phoneView.app
+The '...' are a random series of numbers. You need to get these files out of our iOS device by using iphone/ios backup extractors.
 
