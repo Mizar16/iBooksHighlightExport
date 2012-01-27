@@ -48,15 +48,15 @@ class BookNotes:
         i = 0
         while(len(self.completeNoteList) > i):
             try:
-                FILE.write("HIGHLIGHT:")
-                FILE.write("\n")
+                FILE.write("HIGHLIGHT:\n")
+                FILE.write("---------\n")
                 FILE.write(self.completeNoteList[i][1].encode('utf-8'))
-                FILE.write("\n")
-                FILE.write("NOTE:")
-                FILE.write("\n")
+                FILE.write("\n-----\n")
+                FILE.write("NOTE:\n")
+                FILE.write("-----\n")
                 FILE.write(self.completeNoteList[i][0].encode('utf-8'))
-                FILE.write("\n")
-                FILE.write("\n")
+                FILE.write(" \n")
+                FILE.write("\n---------\n")
                 i=i+1
             except:
                 i=i+1
