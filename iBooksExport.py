@@ -27,22 +27,23 @@ import sys
 
 class BookNotes:
     #vaiables
-    bookName = ''
-    completeNoteList =[]
 
     #constructor
     def __init__(self):
-        print "test"     
+        self.completeNoteList = []
+        self.bookName = ''
     
     def setBookName(self, incomingBookName):
         self.bookName = incomingBookName
     
-    def addNoteArray(self, incomingNoteArray=[]):
-        completeNoteList.append(incomingNoteArray)
+    def addNoteArray(self, incoming):
+        self.completeNoteList.append(incoming)
+    
     def printTheBook(self):
+        print "===== " + self.bookName + "====="
         i = 0
-        while(completeNoteList.len < i):
-            print 'completeNoteList[i][1]'+' : '+'completeNoteList[i][2]'+' : '+'completeNoteList[i][3]'
+        while(len(self.completeNoteList) > i):
+            print self.completeNoteList[i][1] +' : '+ self.completeNoteList[i][2] +' : '+ self.completeNoteList[i][3]
             print ''
             i=i+1
 
@@ -84,11 +85,9 @@ with dbConnection :
 #connection to notes db
 dbConnection = lite.connect(notesDB)
 
-#dicionary for book key and bookNote obj
-bookList = {}
+#dicionary for book key
 noteRows = []
 
-flag = True
 with dbConnection :
     
     dbConnection.row_factory = lite.Row
@@ -116,12 +115,23 @@ with dbConnection :
         #print " "
         #print " %s : %s : %s" %  (row["ZANNOTATIONNOTE"], row["ZANNOTATIONSELECTEDTEXT"], row["ZANNOTATIONASSETID"])
 
+for book in dictKeyBook:
 
-#iterate through each noteRow in noteRows
-#each note row are all pertinant data in it
-#each books title is mapped to its asset id in dictKeyBook
-#add book obj to the bookList
-#print out each book obj in the bookList
+    Flag = False
 
+    thisBook = BookNotes ()
+    thisBook.setBookName(dictKeyBook[book])    
 
+    #iterate through each noteRow in noteRows
+    for note in noteRows:
+        bookKey = note[2]
+        bookName = dictKeyBook[bookKey]
+        
+        if(bookName == thisBook.bookName):
+            thisBook.addNoteArray(note)
+            Flag = True
+
+    if Flag:
+        print ""
+        thisBook.printTheBook()
 
