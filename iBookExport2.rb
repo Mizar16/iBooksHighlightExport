@@ -49,21 +49,23 @@ bookKeyTileDB.execute("select ZDATABASEKEY, ZBOOKTITLE from ZBKBOOKINFO") do |ro
 			bookFile.close()
 		
 			#at each point do a query for notes or highlights
-			bookNotesDB.execute("select ZANNOTATIONNOTE, ZANNOTATIONSELECTEDTEXT, ZANNOTATIONASSETID, ZPLLOCATIONRANGESTART, ZANNOTATIONTYPE from ZAEANNOTATION where ZANNOTATIONTYPE=2 and ZANNOTATIONASSETID = ?", bookNameKey) do |notes|
+			bookNotesDB.execute("select ZANNOTATIONNOTE, ZANNOTATIONSELECTEDTEXT, ZANNOTATIONASSETID, ZPLLOCATIONRANGESTART, ZANNOTATIONTYPE, ZANNOTATIONDELETED from ZAEANNOTATION where ZANNOTATIONTYPE=2 and ZANNOTATIONDELETED = 0 and ZANNOTATIONASSETID = ?", bookNameKey) do |notes|
 		
 				bookFile = File.open("bookNote/"+bookName[0,30]+".txt","a")
 
 				#add those to the book class obj
-				if notes[0]!=nil
+				if notes[1]!=nil
 					#	puts "::"+ notes[0] + "::"+notes[1]+"::"+notes[2]
 					#	notes[0] is note, notes[1] is highlight
 					#	print notes and highlights
 					bookFile << "Highlight:\n"
 					bookFile << "---------------------------------\n"
 					bookFile << "		"+notes[1]+"\n\n"
-					bookFile << "Note:\n"
-					bookFile << "---------------------------------\n\n"
-					bookFile << "		"+notes[0]+"\n\n\n"
+					if notes[0]!=nil
+						bookFile << "Note:\n"
+						bookFile << "---------------------------------\n"
+						bookFile << "		"+notes[0]+"\n\n\n"
+					end
 				end
 				bookFile.close()
 			end
