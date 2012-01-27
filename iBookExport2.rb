@@ -44,7 +44,8 @@ bookKeyTileDB.execute("select ZDATABASEKEY, ZBOOKTITLE from ZBKBOOKINFO") do |ro
 
         #add those to the book class obj
 		if notes[0]!=nil
-			#	puts "::"+ notes[0]
+			#	puts "::"+ notes[0] + "::"+notes[1]+"::"+notes[2]
+			#	notes[0] is note, notes[1] is highlight
 			#	make a class
 			#	add notes and to that class
 
