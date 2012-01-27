@@ -30,3 +30,5 @@ The '...' are a seamingly random series of numbers. You need to get these files 
 Usage
 The ruby script takes two (and only two) arguments. They are the path/fileNames of the sqlite database files need to extract info from. Notes for each book will be their own file and output to the bookNotes directory.
 
+iBooksExport.py is considered deprecated and doesnt work.
+
