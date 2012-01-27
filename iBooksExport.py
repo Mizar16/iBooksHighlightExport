@@ -93,7 +93,12 @@ with dbConnection :
         #add the bdkey and book title to a dictionary for reference later
         #the below could be an error of converstion to ascii from unicode
         # if we convert here we have to convert the key when it is encountered later
-        dictKeyBook[str(row["ZDATABASEKEY"])] = row["ZBOOKTITLE"]
+        thisBookKey = row["ZDATABASEKEY"]
+        decodeBookKey = thisBookKey.decode('utf-8')
+        print "orig key " + thisBookKey
+        #dictKeyBook[decodeBookKey.encode('utf-8')] = row["ZBOOKTITLE"]
+        dictKeyBook[decodeBookKey] = row["ZBOOKTITLE"]
+
 
 #print dictKeyBook
 
@@ -139,7 +144,8 @@ for book in dictKeyBook:
 
     #iterate through each noteRow in noteRows
     for note in noteRows:
-        bookKey = note[2]
+        bookKey = (note[2]).decode('utf-8')
+        print bookKey
         bookName = dictKeyBook[bookKey]
         
         if(bookName == thisBook.bookName):
