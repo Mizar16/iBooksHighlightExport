@@ -42,14 +42,19 @@ class BookNotes:
     def printTheBook(self):
         fileName = self.bookName +".txt"
         FILE = open(fileName, "w")
-        FILE.write("===== " + self.bookName.encode('utf-8') + " =====\n")
+        FILE.write("===== " + self.bookName.encode('utf-8') + " =====")
+        FILE.write("\n")
         FILE.write("\n")
         i = 0
         while(len(self.completeNoteList) > i):
             try:
-                FILE.write(self.completeNoteList[i][0].encode('utf-8'))
+                FILE.write("HIGHLIGHT:")
                 FILE.write("\n")
                 FILE.write(self.completeNoteList[i][1].encode('utf-8'))
+                FILE.write("\n")
+                FILE.write("NOTE:")
+                FILE.write("\n")
+                FILE.write(self.completeNoteList[i][0].encode('utf-8'))
                 FILE.write("\n")
                 FILE.write("\n")
                 i=i+1
