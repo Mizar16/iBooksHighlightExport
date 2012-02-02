@@ -36,7 +36,3 @@ Usage:
 -------
 The ruby script takes two (and only two) arguments. They are the fileNames of the sqlite database files needed to extract info from. Notes for each book will be their own file and outputed into the bookNotes directory.
 
-Further Notes:
-------------------
-iBooksExport.py is considered deprecated and doesnt work.
-
