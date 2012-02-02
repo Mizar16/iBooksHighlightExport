@@ -12,6 +12,10 @@ iBooksDB = ARGV[0]
 tempArg = ARGV[1]
 notesDB = ""
 
+if ARGV[0] == nil
+	puts "argument error"
+end
+
 #correctly attribute database file names
 if iBooksDB[0,2] == "iB"
     notesDB = tempArg
