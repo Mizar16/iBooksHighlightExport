@@ -38,6 +38,3 @@ In the ZBKBOOKINFO table:
 - ZDATABASEKEY and ZBOOKUNIQUEID are equal in all cases when the book is not DRMed. So ignore ZBOOKUNIQUEID and only use ZDATABASEKEY.
 
 
-The script executes on these two dbs to export your notes and highlights. Place these two databases in the same directory as the ruby script.
-
-
