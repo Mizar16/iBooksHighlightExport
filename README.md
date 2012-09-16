@@ -28,10 +28,10 @@ The script executes on these two dbs to export your notes and highlights. Place 
 - The ZPLLOCATIONRANGESTART field may the location of the note/highlight. this is to help sort the order of notes later. I use this number to sort the notes/highlights. It isnt exact though. I havnt spent the time to figure out why as the current method gets the job done.
 - The ZANNOTATIONDELETED field is to indicate if the note/highlight was delected or not. a value of 1 means it was deleted. The script will not collect deleted highlights or notes
 
-The book to ZANNOTATIONASSETID map is in the
+####The book to ZANNOTATIONASSETID map is in the
 - Documents/BKLibrary_database/iBooks_v....sqlite database
 
-In the ZBKBOOKINFO table:
+####In the ZBKBOOKINFO table:
 - The book id is in the ZBOOKUNIQUEID field
 - The book title is in the ZBOOKTITLE field
 - If the book has DRM then the book id is in the ZDATABASEKEY field
@@ -39,7 +39,7 @@ In the ZBKBOOKINFO table:
 
 ####Extract iBooks Backup Database
 
-iOS backups using a SHA-1 hashing algorithm. For example: the iBooks data bases are stored in the file that is the SHA-1 hash of:
+iOS backups using a SHA-1 hashing algorithm. For example: the iBooks databases are stored in the file that is the SHA-1 hash of:
 
 - AppDomain-com.apple.iBooks-Documents/BKLibrary_database/iBooks_v10252011_2152.sqlite
 - AppDomain-com.apple.iBooks-Documents/storeFiles/AEAnnotation_v10312011_1727_local.sqlite
@@ -49,4 +49,5 @@ The resulting SHA-1's are, in order:
 - 715cda37fa46cecd13b4fc1ba61c82817895224f
 
 The format of this is : AppDomain-[domain of app]-[app path and file name]
-You can take any app file you want to extract from the data base and create a SHA-1 hash of if using this format to determine which file in the iOS backup it is.
+
+You can take any app file you want to extract from the data base and create a SHA-1 hash of if using this format. Then you search the iOS database files for the SHA-1 hash and that is the corresponding file.
