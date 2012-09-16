@@ -8,8 +8,7 @@ The ruby script takes two (and only two) arguments. They are the fileNames of th
 First you need to export the two required databases. Currrently you can extract these from an iOS back up using this tool http://supercrazyawesome.com/ or using a iOS device viewer like phoneView.
 
 With either method you will find an ibooks directory. In that directory you will find the two databases:
-AEAnnotation_v..._local.sqlite  and  iBooks_v....sqlite
-The '...' are a seamingly random series of numbers. To my understanding numbers are the same for each device but I havnt tested that. 
+AEAnnotation_v10312011_1727_local.sqlite and  iBooks_v10252011_2152.sqlite
 
 The script executes on these two dbs to export your notes and highlights. Place these two databases in the same directory as the ruby script.
 
@@ -17,7 +16,7 @@ The script executes on these two dbs to export your notes and highlights. Place 
 ##SQLite Developer notes
 
 ####Highlights and notes are in the below database:
-- Documents/storeFiles/AEAnnotation_v..._local.sqlite
+- Documents/storeFiles/AEAnnotation_v10312011_1727_local.sqlite
 
 ####In the ZAEANNOTATION TABLE:
 
@@ -29,7 +28,7 @@ The script executes on these two dbs to export your notes and highlights. Place 
 - The ZANNOTATIONDELETED field is to indicate if the note/highlight was delected or not. a value of 1 means it was deleted. The script will not collect deleted highlights or notes
 
 ####The book to ZANNOTATIONASSETID map is in the
-- Documents/BKLibrary_database/iBooks_v....sqlite database
+- Documents/BKLibrary_database/iBooks_v10252011_2152.sqlite
 
 ####In the ZBKBOOKINFO table:
 - The book id is in the ZBOOKUNIQUEID field
